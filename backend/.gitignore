@@ -1,0 +1,13 @@
+# Python and Backend
+venv/
+.env
+*.ini
+.sqlite
+.pytest_cache/
+__pycache__/
+*.py[cod]
+*$py.class
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
