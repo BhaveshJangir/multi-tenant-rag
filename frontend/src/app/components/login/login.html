@@ -1,0 +1,55 @@
+<div class="min-h-screen flex flex-col items-center justify-center gradient-bg relative overflow-hidden">
+  <!-- Decorative background elements -->
+  <div class="absolute top-[-10%] left-[-10%] w-96 h-96 bg-purple-500 rounded-full mix-blend-multiply filter blur-3xl opacity-50 animate-blob"></div>
+  <div class="absolute top-[20%] right-[-10%] w-96 h-96 bg-indigo-500 rounded-full mix-blend-multiply filter blur-3xl opacity-50 animate-blob animation-delay-2000"></div>
+  <div class="absolute bottom-[-20%] left-[20%] w-96 h-96 bg-blue-500 rounded-full mix-blend-multiply filter blur-3xl opacity-50 animate-blob animation-delay-4000"></div>
+
+  <div class="glass-panel p-10 rounded-2xl w-full max-w-md relative z-10 mx-4">
+    <div class="text-center mb-8">
+      <div class="w-16 h-16 bg-gradient-to-tr from-blue-600 to-purple-600 rounded-2xl shadow-lg shadow-purple-500/30 flex items-center justify-center mx-auto mb-4 transform -rotate-6">
+        <svg class="w-8 h-8 text-white transform rotate-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+      </div>
+      <h2 class="text-3xl font-display font-bold text-gray-900 tracking-tight">Welcome Back</h2>
+      <p class="text-gray-500 mt-2 text-sm font-medium">Enterprise Knowledge Assistant</p>
+    </div>
+    
+    <div *ngIf="errorMessage" class="bg-red-50/80 backdrop-blur-sm border-l-4 border-red-500 text-red-700 p-4 rounded-lg mb-6 shadow-sm flex items-start">
+      <svg class="w-5 h-5 mr-2 text-red-500 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+      <span class="text-sm font-medium">{{ errorMessage }}</span>
+    </div>
+
+    <form (ngSubmit)="onSubmit()" class="space-y-6">
+      <div>
+        <label class="block text-gray-700 text-sm font-semibold mb-2 ml-1">Email Address</label>
+        <div class="relative">
+          <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+            <svg class="h-5 w-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
+          </div>
+          <input [(ngModel)]="credentials.username" name="username" class="pl-10 w-full px-4 py-3 bg-white/50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all text-gray-900 placeholder-gray-400 outline-none shadow-inner" type="email" placeholder="you@company.com" required>
+        </div>
+      </div>
+      
+      <div>
+        <label class="block text-gray-700 text-sm font-semibold mb-2 ml-1">Password</label>
+        <div class="relative">
+          <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+            <svg class="h-5 w-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
+          </div>
+          <input [(ngModel)]="credentials.password" name="password" class="pl-10 w-full px-4 py-3 bg-white/50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all text-gray-900 placeholder-gray-400 outline-none shadow-inner" type="password" placeholder="••••••••" required>
+        </div>
+      </div>
+      
+      <button type="submit" class="w-full btn-primary py-3 text-lg font-semibold tracking-wide flex justify-center items-center">
+        Sign In
+        <svg class="ml-2 w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+      </button>
+    </form>
+    
+    <div class="mt-8 pt-6 border-t border-gray-200/50 text-center">
+      <p class="text-sm text-gray-600">
+        Don't have an account? 
+        <a routerLink="/register" class="font-semibold text-blue-600 hover:text-purple-600 transition-colors ml-1">Register now</a>
+      </p>
+    </div>
+  </div>
+</div>

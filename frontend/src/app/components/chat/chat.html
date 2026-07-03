@@ -1,0 +1,57 @@
+<div class="h-screen flex flex-col gradient-bg relative overflow-hidden">
+  <!-- Top Navigation -->
+  <header class="glass-panel px-6 py-4 flex justify-between items-center z-20 border-b-0 shadow-md">
+    <div class="flex items-center space-x-3">
+      <div class="w-10 h-10 bg-gradient-to-tr from-blue-600 to-purple-600 rounded-xl shadow-lg flex items-center justify-center">
+        <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z"></path></svg>
+      </div>
+      <h1 class="text-xl font-display font-bold text-gray-900">Knowledge Chat</h1>
+    </div>
+    <div class="flex items-center space-x-4">
+      <button *ngIf="auth.role === 'admin' || auth.role === 'manager'" routerLink="/admin" class="px-4 py-2 text-sm font-medium text-gray-700 bg-white/50 hover:bg-white/80 rounded-lg transition-colors border border-gray-200 backdrop-blur-md">Admin Dashboard</button>
+      <button *ngIf="auth.role === 'admin' || auth.role === 'manager'" routerLink="/upload" class="px-4 py-2 text-sm font-medium text-gray-700 bg-white/50 hover:bg-white/80 rounded-lg transition-colors border border-gray-200 backdrop-blur-md">Upload Document</button>
+      <button (click)="auth.logout()" class="px-4 py-2 text-sm font-medium text-white bg-red-500/80 hover:bg-red-600 rounded-lg transition-colors shadow-lg shadow-red-500/20 backdrop-blur-md">Logout</button>
+    </div>
+  </header>
+
+  <!-- Chat Area -->
+  <div class="flex-1 overflow-y-auto p-6 z-10 relative" id="chat-container">
+    <div class="max-w-4xl mx-auto space-y-6 pb-20">
+      <div *ngIf="messages.length === 0" class="flex flex-col items-center justify-center h-full mt-20 text-center">
+        <div class="w-24 h-24 bg-white/40 rounded-full flex items-center justify-center backdrop-blur-md mb-6 shadow-xl shadow-purple-500/10">
+          <svg class="w-12 h-12 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"></path></svg>
+        </div>
+        <h2 class="text-3xl font-display font-bold text-gray-900 mb-2">How can I help you today?</h2>
+        <p class="text-gray-700 font-medium">Ask anything about your enterprise documents.</p>
+      </div>
+
+      <!-- Messages -->
+      <div *ngFor="let msg of messages" class="flex" [ngClass]="{'justify-end': msg.role === 'user', 'justify-start': msg.role === 'assistant'}">
+        <div [ngClass]="{'bg-blue-600 text-white rounded-br-sm': msg.role === 'user', 'bg-white/80 backdrop-blur-md text-gray-800 rounded-bl-sm border border-white/60 shadow-md': msg.role === 'assistant'}" class="max-w-[80%] rounded-2xl px-6 py-4 shadow-sm">
+          <p class="whitespace-pre-wrap leading-relaxed">{{ msg.content }}</p>
+        </div>
+      </div>
+      
+      <!-- Loading indicator -->
+      <div *ngIf="isLoading" class="flex justify-start">
+        <div class="bg-white/80 backdrop-blur-md text-gray-800 rounded-2xl rounded-bl-sm border border-white/60 px-6 py-4 shadow-md flex items-center space-x-2">
+          <div class="w-2 h-2 bg-blue-500 rounded-full animate-bounce"></div>
+          <div class="w-2 h-2 bg-purple-500 rounded-full animate-bounce" style="animation-delay: 0.2s"></div>
+          <div class="w-2 h-2 bg-pink-500 rounded-full animate-bounce" style="animation-delay: 0.4s"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Input Area -->
+  <div class="absolute bottom-0 left-0 w-full p-6 z-20 bg-gradient-to-t from-gray-900/10 to-transparent">
+    <div class="max-w-4xl mx-auto relative">
+      <div class="glass-panel rounded-2xl flex items-center p-2 pr-3 shadow-[0_8px_30px_rgb(0,0,0,0.12)]">
+        <input [(ngModel)]="currentMessage" (keyup.enter)="sendMessage()" [disabled]="isLoading" type="text" placeholder="Type your message here..." class="flex-1 bg-transparent border-none px-4 py-3 text-gray-800 placeholder-gray-500 focus:outline-none focus:ring-0">
+        <button (click)="sendMessage()" [disabled]="isLoading || !currentMessage.trim()" class="btn-primary p-3 rounded-xl disabled:opacity-50 disabled:cursor-not-allowed">
+          <svg class="w-5 h-5 transform rotate-90" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"></path></svg>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
