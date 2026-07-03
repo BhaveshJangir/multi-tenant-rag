@@ -1,0 +1,7 @@
+# Node.js and Frontend
+node_modules/
+.node_modules/
+.angular/
+dist/
+build/
+.env
