@@ -1,0 +1,32 @@
+fastapi
+uvicorn[standard]
+pydantic
+pydantic-settings
+python-dotenv
+sqlalchemy
+aiosqlite
+asyncpg
+alembic
+passlib[bcrypt]
+python-jose[cryptography]
+python-multipart
+pytest
+pytest-asyncio
+httpx
+
+# RAG & AI
+langchain
+langchain-openai
+langchain-community
+langgraph
+langfuse
+qdrant-client
+sentence-transformers
+
+# Document Parsers
+pymupdf
+python-docx
+python-pptx
+openpyxl
+beautifulsoup4
+mailparser
